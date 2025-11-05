@@ -1,0 +1,22 @@
+title: "Заявка на повышение - Добрин Андрей"
+description: "Full-stack разработчик | AI-driven development | Tech Lead candidate"
+theme: jekyll-theme-cayman
+markdown: kramdown
+plugins:
+  - jekyll-mermaid
+
+# GitHub Pages settings
+baseurl: ""
+url: "https://liperri.github.io"
+
+# Author
+author:
+  name: "Добрин Андрей"
+  email: "your-email@example.com"
+
+# Social links (optional)
+github_username: liperri
+
+# Enable Mermaid diagrams
+mermaid:
+  enabled: true
