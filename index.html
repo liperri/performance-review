@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добрин Андрей - Заявка на повышение</title>
+
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#a78bfa',
+                primaryTextColor: '#000',
+                primaryBorderColor: '#7c3aed',
+                lineColor: '#7c3aed',
+                secondaryColor: '#34d399',
+                tertiaryColor: '#fbbf24',
+                pie1: '#a78bfa',
+                pie2: '#34d399',
+                pie3: '#fbbf24',
+                pie4: '#60a5fa'
+            }
+        });
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .goal {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            font-style: italic;
+            backdrop-filter: blur(10px);
+        }
+
+        .content {
+            padding: 3rem 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 3rem 0 1.5rem 0;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            color: #764ba2;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+
+        ul li {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+
+        .mermaid {
+            text-align: center;
+            margin: 2.5rem auto;
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid #e5e7eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f3f4f6;
+        }
+
+        pre {
+            background: #f0fdf4;
+            border-left: 4px solid #10b981;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        blockquote {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1.25rem 1.75rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: #78350f;
+        }
+
+        blockquote strong {
+            color: #92400e;
+        }
+
+        strong {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #e5e7eb;
+            margin: 3rem 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            background: #f9fafb;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Loading animation */
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: #6b7280;
+        }
+
+        .spinner {
+            border: 3px solid #e5e7eb;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 2rem 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Привет! Я - Добрин Андрей</h1>
+            <div class="subtitle">
+                <strong>Full-stack разработчик BI Group</strong>, который использует современные технологии и ИИ, чтобы доставлять результат быстрее, качественнее и масштабируемее.
+            </div>
+            <div class="goal">
+                <strong>Цель этого документа:</strong> показать мой вклад в развитие продуктов компании, эффект от внедрения новых подходов и готовность брать больше ответственности.
+            </div>
+            <a href="https://github.com/liperri/performance-review" class="btn" target="_blank">📂 View on GitHub</a>
+        </header>
+
+        <div class="content">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Загрузка документа...</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>— Сделано с душой ❤️ (и с лёгкой помощью ИИ)</p>
+            <p style="margin-top: 1rem; font-size: 0.875rem;">© 2025 Добрин Андрей</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fetch and render README.md
+        fetch('README.md')
+            .then(response => response.text())
+            .then(text => {
+                // Remove the first section (header) since we have it in HTML
+                const lines = text.split('\n');
+                const startIndex = lines.findIndex(line => line.startsWith('## 💡'));
+                const contentLines = lines.slice(startIndex);
+                const markdown = contentLines.join('\n');
+
+                // Configure marked to support tables
+                marked.setOptions({
+                    breaks: true,
+                    gfm: true,
+                });
+
+                // Convert markdown to HTML
+                let html = marked.parse(markdown);
+
+                // Replace code blocks containing checkmarks with pre tags
+                html = html.replace(/<code>([\s\S]*?)<\/code>/g, (match, content) => {
+                    if (content.includes('✅')) {
+                        return '<pre><code>' + content + '</code></pre>';
+                    }
+                    return match;
+                });
+
+                // Replace mermaid code blocks with mermaid divs
+                html = html.replace(/<pre><code class="language-mermaid">([\s\S]*?)<\/code><\/pre>/g,
+                    '<div class="mermaid">$1</div>');
+
+                document.querySelector('.content').innerHTML = html;
+
+                // Re-initialize Mermaid after content is loaded
+                setTimeout(() => {
+                    mermaid.run();
+                }, 100);
+            })
+            .catch(err => {
+                document.querySelector('.content').innerHTML =
+                    '<div class="loading"><p>❌ Не удалось загрузить содержимое. Пожалуйста, <a href="README.md">откройте README.md</a>.</p></div>';
+            });
+    </script>
+</body>
+</html>
