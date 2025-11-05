@@ -301,35 +301,43 @@
                 const contentLines = lines.slice(startIndex);
                 const markdown = contentLines.join('\n');
 
-                // Configure marked to support tables
+                // Configure marked to support tables and disable escaping HTML in code blocks
                 marked.setOptions({
                     breaks: true,
                     gfm: true,
+                    mangle: false,
+                    headerIds: false
                 });
+
+                // Custom renderer to handle mermaid blocks
+                const renderer = new marked.Renderer();
+                const originalCode = renderer.code.bind(renderer);
+
+                renderer.code = function(code, language) {
+                    if (language === 'mermaid') {
+                        return `<div class="mermaid">${code}</div>`;
+                    }
+                    // For checkmark blocks
+                    if (code.includes('✅')) {
+                        return `<pre><code>${code}</code></pre>`;
+                    }
+                    return originalCode(code, language);
+                };
+
+                marked.use({ renderer });
 
                 // Convert markdown to HTML
                 let html = marked.parse(markdown);
-
-                // Replace code blocks containing checkmarks with pre tags
-                html = html.replace(/<code>([\s\S]*?)<\/code>/g, (match, content) => {
-                    if (content.includes('✅')) {
-                        return '<pre><code>' + content + '</code></pre>';
-                    }
-                    return match;
-                });
-
-                // Replace mermaid code blocks with mermaid divs
-                html = html.replace(/<pre><code class="language-mermaid">([\s\S]*?)<\/code><\/pre>/g,
-                    '<div class="mermaid">$1</div>');
 
                 document.querySelector('.content').innerHTML = html;
 
                 // Re-initialize Mermaid after content is loaded
                 setTimeout(() => {
-                    mermaid.run();
-                }, 100);
+                    mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+                }, 200);
             })
             .catch(err => {
+                console.error('Error loading README:', err);
                 document.querySelector('.content').innerHTML =
                     '<div class="loading"><p>❌ Не удалось загрузить содержимое. Пожалуйста, <a href="README.md">откройте README.md</a>.</p></div>';
             });
