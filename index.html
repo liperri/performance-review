@@ -347,7 +347,16 @@
 
     <script>
         // Fetch and render README.md
-        fetch('README.md')
+        // Try local first, fallback to GitHub raw
+        const fetchContent = () => {
+            return fetch('README.md')
+                .catch(() => {
+                    // Fallback to GitHub raw URL
+                    return fetch('https://raw.githubusercontent.com/liperri/performance-review/main/README.md');
+                });
+        };
+
+        fetchContent()
             .then(response => response.text())
             .then(text => {
                 // Remove the first section (header) since we have it in HTML
