@@ -89,9 +89,9 @@ gantt
     dateFormat  YYYY-MM-DD
     title Roadmap 2025
     section Цели
-    CRM Refactor :a1, 2025-02-01, 120d
-    Team Mentorship :a2, 2025-02-15, 90d
-    AI Process Integration :a3, 2025-05-01, 60d
+    CRM Refactor :a1, 2025-10-01, 2025-12-31
+    Team Mentorship :a2, 2025-11-01, 2025-12-31
+    AI Process Integration :a3, 2025-05-01, 2025-12-31
 ```
 
 ---
