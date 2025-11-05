@@ -52,13 +52,26 @@ graph TD
 * Поддерживаю команду и всегда в курсе их задач.
 
 ```mermaid
-flowchart LR
-    A[Идея] --> B[Анализ]
-    B --> C[ИИ оркестрация]
-    C --> D[Тестирование]
-    D --> E[Деплой]
-    E --> F[Оптимизация]
+flowchart TD
+    A[Я] --> B[Core Team]
+    A --> C[Команда 1]
+    A --> D[Команда 2]
+    C --> E[Backend]
+    C --> F[Frontend]
+    D --> G[Backend]
+    D --> H[Frontend]
+
+    style A fill:#10b981,color:#fff
+    style B fill:#3b82f6,color:#fff
+    style C fill:#8b5cf6,color:#fff
+    style D fill:#8b5cf6,color:#fff
+    style E fill:#f59e0b,color:#fff
+    style F fill:#f59e0b,color:#fff
+    style G fill:#f59e0b,color:#fff
+    style H fill:#f59e0b,color:#fff
 ```
+
+> Структура взаимодействия между мной и командами отражает распределённую модель: я поддерживаю основную Core Team и две подкоманды (Frontend + Backend), помогая выстраивать процессы и коммуникацию.
 
 ---
 
