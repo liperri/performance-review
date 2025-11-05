@@ -6,7 +6,7 @@
     <title>Добрин Андрей - Заявка на повышение</title>
 
     <!-- Marked.js for Markdown parsing -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
 
     <!-- Mermaid -->
     <script type="module">
@@ -27,7 +27,7 @@
                 pie4: '#60a5fa'
             }
         });
-        window.mermaid = mermaid;
+        window.mermaidReady = mermaid;
     </script>
 
     <style>
@@ -582,51 +582,65 @@ graph LR
 > — Сделано с душой ❤️ (и с лёгкой помощью ИИ)
 `;
 
-        // Render embedded content
-        (function() {
+        // Wait for DOM and libraries to load
+        window.addEventListener('DOMContentLoaded', function() {
             try {
+                console.log('Starting render...');
+                console.log('marked available:', typeof marked);
+
                 const markdown = MARKDOWN_CONTENT;
 
                 // Configure marked to support tables
-                marked.setOptions({
-                    breaks: true,
-                    gfm: true,
-                    mangle: false,
-                    headerIds: false
-                });
+                if (typeof marked !== 'undefined') {
+                    marked.setOptions({
+                        breaks: true,
+                        gfm: true,
+                        mangle: false,
+                        headerIds: false
+                    });
 
-                // Custom renderer to handle mermaid blocks
-                const renderer = new marked.Renderer();
-                const originalCode = renderer.code.bind(renderer);
+                    // Custom renderer to handle mermaid blocks
+                    const renderer = new marked.Renderer();
+                    const originalCode = renderer.code.bind(renderer);
 
-                renderer.code = function(code, language) {
-                    if (language === 'mermaid') {
-                        return `<div class="mermaid">${code}</div>`;
-                    }
-                    // For checkmark blocks
-                    if (code.includes('✅')) {
-                        return `<pre><code>${code}</code></pre>`;
-                    }
-                    return originalCode(code, language);
-                };
+                    renderer.code = function(code, language) {
+                        if (language === 'mermaid') {
+                            return `<div class="mermaid">${code}</div>`;
+                        }
+                        // For checkmark blocks
+                        if (code.includes('✅')) {
+                            return `<pre><code>${code}</code></pre>`;
+                        }
+                        return originalCode(code, language);
+                    };
 
-                marked.use({ renderer });
+                    marked.use({ renderer });
 
-                // Convert markdown to HTML
-                let html = marked.parse(markdown);
+                    // Convert markdown to HTML
+                    let html = marked.parse(markdown);
+                    console.log('HTML generated, length:', html.length);
 
-                document.querySelector('.content').innerHTML = html;
+                    document.querySelector('.content').innerHTML = html;
+                    console.log('Content inserted into DOM');
 
-                // Re-initialize Mermaid after content is loaded
-                setTimeout(() => {
-                    window.mermaid.init(undefined, document.querySelectorAll('.mermaid'));
-                }, 200);
+                    // Re-initialize Mermaid after content is loaded
+                    setTimeout(() => {
+                        if (window.mermaidReady) {
+                            console.log('Initializing mermaid...');
+                            window.mermaidReady.init(undefined, document.querySelectorAll('.mermaid'));
+                        } else {
+                            console.warn('Mermaid not ready yet');
+                        }
+                    }, 500);
+                } else {
+                    throw new Error('marked.js not loaded');
+                }
             } catch(err) {
                 console.error('Error loading README:', err);
                 document.querySelector('.content').innerHTML =
-                    '<div class="loading"><p>❌ Не удалось загрузить содержимое. Пожалуйста, <a href="README.md">откройте README.md</a>.</p></div>';
+                    '<div class="loading"><p>❌ Не удалось загрузить содержимое: ' + err.message + '</p><p>Пожалуйста, <a href="README.md">откройте README.md</a>.</p></div>';
             }
-        })();
+        });
     </script>
 </body>
 </html>
